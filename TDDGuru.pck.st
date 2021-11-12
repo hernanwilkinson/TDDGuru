@@ -1,6 +1,6 @@
-'From Cuis 5.0 [latest update: #4532] on 9 June 2021 at 8:01:13 pm'!
-'Description Hacer TDDStateIcon subclase de Object y definir setBallonText:'!
-!provides: 'TDDGuru' 1 49!
+'From Cuis 5.0 [latest update: #4967] on 12 November 2021 at 12:35:23 pm'!
+'Description Fixed for timestamps without seconds'!
+!provides: 'TDDGuru' 1 50!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: 'TDDGuru-Tests'!
@@ -3877,14 +3877,15 @@ description
 isRecognized
 	^ true! !
 
-!Change methodsFor: 'accessing' stamp: 'MGD 12/26/2019 19:50:53'!
+!Change methodsFor: 'accessing' stamp: 'HAW 11/12/2021 12:33:07'!
 time
 	| timeParts hours minutes seconds date time |
 	
 	date := FixedGregorianDate fromDate: self dateString asDate.
 	timeParts := self timeString findTokens: ':'.
-	
-	timeParts size = 3 ifFalse: [ self error: 'Incorrect time format ', self timeString ].
+	"Some timestamps have only hour and minutes without seconds, so we add 0 to fix that problem - Hernan"
+	timeParts add: 0.
+	timeParts size < 3 ifTrue: [ self error: 'Incorrect time format ', self timeString ].
 	
 	hours := timeParts first asNumber.
 	minutes := timeParts second asNumber.

@@ -1,6 +1,6 @@
-'From Cuis 5.0 [latest update: #4967] on 12 November 2021 at 12:35:23 pm'!
-'Description Fixed for timestamps without seconds'!
-!provides: 'TDDGuru' 1 50!
+'From Cuis 6.0 [latest update: #5173] on 21 May 2022 at 8:10:58 pm'!
+'Description Sync with PreferenceNG'!
+!provides: 'TDDGuru' 1 51!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: 'TDDGuru-Tests'!
@@ -559,89 +559,6 @@ TDDStateIcon class
 	instanceVariableNames: ''!
 
 
-!Change methodsFor: 'accessing' stamp: 'MGD 5/31/2019 07:28:53'!
-category
-	self subclassResponsibility ! !
-
-!Change methodsFor: 'printing' stamp: 'MGD 6/20/2019 15:19:42'!
-printOn: aStream
-	(self category printString, ' - ', self description) printOn: aStream.! !
-
-!ClassRenamed methodsFor: 'accessing' stamp: 'MGD 12/19/2019 20:45:49'!
-category
-	^ #classRenamed! !
-
-!ModelClassRemoved methodsFor: 'accessing' stamp: 'MGD 7/15/2019 07:40:25'!
-category
-	^ #classRemoved! !
-
-!NewModelClass methodsFor: 'accessing' stamp: 'MGD 8/16/2019 09:58:58'!
-category
-	^ #newModelClass! !
-
-!NewTestClass methodsFor: 'accessing' stamp: 'MGD 5/11/2019 15:47:31'!
-category
-	^ #newTestClass! !
-
-!TestClassRemoved methodsFor: 'accessing' stamp: 'MGD 10/14/2019 16:19:30'!
-category
-	^ #testClassRemoved! !
-
-!MethodRemoved methodsFor: 'accessing' stamp: 'MGD 6/26/2019 19:12:27'!
-category
-	^ #methodRemoved! !
-
-!ModelMethodChanged methodsFor: 'accessing' stamp: 'MGD 8/16/2019 09:58:50'!
-category
-	^ #modelMethodChanged! !
-
-!NewModelMethod methodsFor: 'accessing' stamp: 'MGD 8/16/2019 10:08:12'!
-category
-	^ #newModelMethod! !
-
-!NewTest methodsFor: 'accessing' stamp: 'MGD 5/24/2019 11:48:13'!
-category
-	^ #newTest! !
-
-!TestChanged methodsFor: 'accessing' stamp: 'MGD 5/16/2019 20:15:49'!
-category
-	^ #testChanged! !
-
-!TestRemoved methodsFor: 'accessing' stamp: 'MGD 10/14/2019 13:18:52'!
-category
-	^ #testRemoved! !
-
-!TestUtilityChanged methodsFor: 'accessing' stamp: 'MGD 6/13/2019 18:34:45'!
-category
-	^ #testRefactor! !
-
-!TestRenamed methodsFor: 'accessing' stamp: 'MGD 8/8/2019 19:39:34'!
-category
-	^ #testRenamed! !
-
-!TestFailed methodsFor: 'accessing' stamp: 'MGD 5/16/2019 20:16:02'!
-category
-	^ #testRun! !
-
-!TestPassed methodsFor: 'accessing' stamp: 'MGD 5/31/2019 07:29:27'!
-category
-	^ #testRun! !
-
-!UnknownChange methodsFor: 'accessing' stamp: 'MGD 6/27/2019 11:51:17'!
-category
-	^ #unknown! !
-
-!TDDState methodsFor: 'accessing' stamp: 'MGD 10/12/2019 12:43:32'!
-name
-	^ self className ! !
-
-!UninstalledMethodReference methodsFor: 'printing' stamp: 'MGD 9/4/2019 21:07:02'!
-printOn: aStream
-	aStream nextPutAll: 'TestReference '.
-	aStream nextPutAll: className.
-	aStream nextPutAll: '>>'.
-	selector printOn: aStream ! !
-
 !InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 10/3/2019 19:16:38'!
 colorForChange: aChange	
 	(owner analysisResult isCorrect: aChange) ifTrue: [ ^ AnalysisResultWindow successColor ] ifFalse: [ ^ AnalysisResultWindow errorColor ]! !
@@ -1063,10 +980,13 @@ changesFileForTests
 
 	^ self changeFileWithExtension: self userChangesForTestFileExtension! !
 
-!TDDGuruTest methodsFor: 'logging' stamp: 'HAW 10/31/2019 16:13:03'!
+!TDDGuruTest methodsFor: 'logging' stamp: 'HAW 5/21/2022 19:15:35'!
 logChangesWhile: aBlockClosure 
 
-	^Preferences use: self userChangesForTestFileExtension asUserChangesFileNameExtensionWhile: aBlockClosure! !
+	^PreferenceNG 
+		withTemporaryValue: self userChangesForTestFileExtension
+		of: #userChangesFileNameExtension
+		do: aBlockClosure! !
 
 !TDDGuruTest methodsFor: 'logging' stamp: 'MGD 12/19/2019 17:09:28'!
 tddGuruTestChangesFileExtension
@@ -1141,22 +1061,22 @@ classCategoryOfTestData
 
 	^ '__TDDGuru-TestData__'! !
 
-!TDDGuruTest methodsFor: 'initialization' stamp: 'MGD 12/19/2019 17:09:28'!
+!TDDGuruTest methodsFor: 'initialization' stamp: 'HAW 5/21/2022 19:17:30'!
 setUp
 	
 	tddGuru := TDDGuru on: self changesFileForTests.
 	classesByName := Dictionary new.
-	previousUserChangesExtension := Preferences userChangesFileNameExtension.
-	Preferences parameters at: #userChangesFileNameExtension put: self tddGuruTestChangesFileExtension
+	previousUserChangesExtension := PreferenceNG at: #userChangesFileNameExtension.
+	PreferenceNG at: #userChangesFileNameExtension put: self tddGuruTestChangesFileExtension
 ! !
 
-!TDDGuruTest methodsFor: 'finalization' stamp: 'MGD 12/19/2019 17:11:23'!
+!TDDGuruTest methodsFor: 'finalization' stamp: 'HAW 5/21/2022 19:17:38'!
 tearDown
 	
 	self changesFileForTests asFileEntry delete.
 	self tddGuruTestDefaultChangesFile asFileEntry delete.
 	SystemOrganization removeSystemCategory: self classCategoryOfTestData.
-	Preferences parameters at: #userChangesFileNameExtension put: previousUserChangesExtension! !
+	PreferenceNG at: #userChangesFileNameExtension put: previousUserChangesExtension! !
 
 !GreenTest methodsFor: 'tests' stamp: 'MGD 9/9/2019 20:25:59'!
 test01WhenANewTestIsAddedThenIsWritingAFailingTest
@@ -3478,9 +3398,13 @@ changeFileWithExtension: fileExtension
 
 	^(FileIOAccessor default baseNameFor: Smalltalk imageName), fileExtension! !
 
-!TestChangesTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 16:00:42'!
+!TestChangesTest methodsFor: 'helpers' stamp: 'HAW 5/21/2022 19:18:24'!
 changeUserChangesFileWhile: aBlock
-	^ Preferences use: self userChangesForTestFileExtension asUserChangesFileNameExtensionWhile: aBlock! !
+	^PreferenceNG 
+		withTemporaryValue: self userChangesForTestFileExtension
+		of: #userChangesFileNameExtension
+		do: aBlock. 
+	! !
 
 !TestChangesTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 17:33:19'!
 changesFileForTests
@@ -3859,6 +3783,10 @@ changes
 	
 	^ timeline changes! !
 
+!Change methodsFor: 'accessing' stamp: 'MGD 5/31/2019 07:28:53'!
+category
+	self subclassResponsibility ! !
+
 !Change methodsFor: 'accessing' stamp: 'MGD 9/18/2019 20:40:55'!
 code
 	
@@ -3900,6 +3828,10 @@ time
 timeString
 	^ self stamp substrings third! !
 
+!Change methodsFor: 'printing' stamp: 'MGD 6/20/2019 15:19:42'!
+printOn: aStream
+	(self category printString, ' - ', self description) printOn: aStream.! !
+
 !Change methodsFor: 'printing' stamp: 'MGD 11/26/2019 16:09:29'!
 printString	
 	^ '[', self category printString, '] ', self description.! !
@@ -3928,6 +3860,10 @@ changeClass
 changeClassName
 	^ changeRecord changeClassName ! !
 
+!ClassRenamed methodsFor: 'accessing' stamp: 'MGD 12/19/2019 20:45:49'!
+category
+	^ #classRenamed! !
+
 !ClassRenamed methodsFor: 'accessing' stamp: 'MGD 12/19/2019 19:49:20'!
 currentName
 	^ changeRecord newClassName ! !
@@ -3944,6 +3880,10 @@ previousName
 reportChangeTo: tddGuru 
 	tddGuru classRenamedFrom: self previousName to: self currentName! !
 
+!ModelClassRemoved methodsFor: 'accessing' stamp: 'MGD 7/15/2019 07:40:25'!
+category
+	^ #classRemoved! !
+
 !ModelClassRemoved methodsFor: 'printing' stamp: 'MGD 10/2/2019 19:39:53'!
 description
 	^ self changeClassName, ' was removed'! !
@@ -3951,6 +3891,10 @@ description
 !ModelClassRemoved methodsFor: 'reporting' stamp: 'MGD 10/14/2019 16:24:29'!
 reportChangeTo: tddGuru
 	tddGuru modelClassRemoved: changeRecord changeClassName! !
+
+!NewModelClass methodsFor: 'accessing' stamp: 'MGD 8/16/2019 09:58:58'!
+category
+	^ #newModelClass! !
 
 !NewModelClass methodsFor: 'printing' stamp: 'MGD 8/16/2019 10:07:20'!
 description
@@ -3960,6 +3904,10 @@ description
 reportChangeTo: tddGuru
 	tddGuru newModelClass: self changeClassName! !
 
+!NewTestClass methodsFor: 'accessing' stamp: 'MGD 5/11/2019 15:47:31'!
+category
+	^ #newTestClass! !
+
 !NewTestClass methodsFor: 'printing' stamp: 'MGD 5/16/2019 20:10:25'!
 description
 	^ 'New test class ', self changeClassName.! !
@@ -3967,6 +3915,10 @@ description
 !NewTestClass methodsFor: 'reporting' stamp: 'MGD 10/15/2019 17:47:12'!
 reportChangeTo: tddGuru
 	tddGuru newTestClass: self changeClassName! !
+
+!TestClassRemoved methodsFor: 'accessing' stamp: 'MGD 10/14/2019 16:19:30'!
+category
+	^ #testClassRemoved! !
 
 !TestClassRemoved methodsFor: 'printing' stamp: 'MGD 10/14/2019 16:19:44'!
 description
@@ -3996,6 +3948,10 @@ methodSelector
 overridesASuperclassMethod
 	^ changeRecord overridesASuperclassMethod ! !
 
+!MethodRemoved methodsFor: 'accessing' stamp: 'MGD 6/26/2019 19:12:27'!
+category
+	^ #methodRemoved! !
+
 !MethodRemoved methodsFor: 'accessing' stamp: 'MGD 10/15/2019 16:25:44'!
 description
 	^ self changeClassName, '>>', self methodSelector, ' was removed'! !
@@ -4007,6 +3963,10 @@ methodReference
 !MethodRemoved methodsFor: 'reporting' stamp: 'MGD 3/18/2020 20:13:15'!
 reportChangeTo: tddGuru
 	tddGuru modelMethodRemoved: self methodReference! !
+
+!ModelMethodChanged methodsFor: 'accessing' stamp: 'MGD 8/16/2019 09:58:50'!
+category
+	^ #modelMethodChanged! !
 
 !ModelMethodChanged methodsFor: 'accessing' stamp: 'HAW 4/5/2020 18:57:47'!
 code
@@ -4028,6 +3988,10 @@ description
 reportChangeTo: tddGuru
 	tddGuru modelMethodChanged: self methodReference ! !
 
+!NewModelMethod methodsFor: 'accessing' stamp: 'MGD 8/16/2019 10:08:12'!
+category
+	^ #newModelMethod! !
+
 !NewModelMethod methodsFor: 'accessing' stamp: 'MGD 9/18/2019 20:41:35'!
 code
 	| changeClass sourceString |
@@ -4045,6 +4009,10 @@ description
 !NewModelMethod methodsFor: 'reporting' stamp: 'MGD 4/2/2020 19:15:50'!
 reportChangeTo: tddGuru
 	tddGuru newModelMethod: self methodReference ! !
+
+!NewTest methodsFor: 'accessing' stamp: 'MGD 5/24/2019 11:48:13'!
+category
+	^ #newTest! !
 
 !NewTest methodsFor: 'accessing' stamp: 'MGD 9/18/2019 20:41:29'!
 code
@@ -4064,6 +4032,10 @@ description
 reportChangeTo: tddGuru
 	tddGuru newTest: self methodReference! !
 
+!TestChanged methodsFor: 'accessing' stamp: 'MGD 5/16/2019 20:15:49'!
+category
+	^ #testChanged! !
+
 !TestChanged methodsFor: 'accessing' stamp: 'MGD 9/18/2019 20:40:31'!
 code
 	| changeClass sourceString |
@@ -4082,6 +4054,10 @@ description
 reportChangeTo: tddGuru
 	tddGuru testChanged: self methodReference ! !
 
+!TestRemoved methodsFor: 'accessing' stamp: 'MGD 10/14/2019 13:18:52'!
+category
+	^ #testRemoved! !
+
 !TestRemoved methodsFor: 'accessing' stamp: 'MGD 3/17/2020 20:15:39'!
 description
 	^ self changeClassName, '>>', self methodSelector, ' was removed'! !
@@ -4093,6 +4069,10 @@ methodReference
 !TestRemoved methodsFor: 'reporting' stamp: 'MGD 3/18/2020 20:18:50'!
 reportChangeTo: tddGuru
 	tddGuru testRemoved: self methodReference ! !
+
+!TestUtilityChanged methodsFor: 'accessing' stamp: 'MGD 6/13/2019 18:34:45'!
+category
+	^ #testRefactor! !
 
 !TestUtilityChanged methodsFor: 'accessing' stamp: 'MGD 9/18/2019 20:41:54'!
 code
@@ -4111,6 +4091,10 @@ description
 !TestUtilityChanged methodsFor: 'reporting' stamp: 'MGD 3/18/2020 20:20:05'!
 reportChangeTo: aTDDGuru 
 	aTDDGuru testUtilityChanged: self methodReference.! !
+
+!TestRenamed methodsFor: 'accessing' stamp: 'MGD 8/8/2019 19:39:34'!
+category
+	^ #testRenamed! !
 
 !TestRenamed methodsFor: 'accessing' stamp: 'MGD 11/5/2019 11:27:22'!
 changeClass
@@ -4180,6 +4164,10 @@ testReference
 testSelector
 	^ changeRecord methodSelector ! !
 
+!TestFailed methodsFor: 'accessing' stamp: 'MGD 5/16/2019 20:16:02'!
+category
+	^ #testRun! !
+
 !TestFailed methodsFor: 'accessing' stamp: 'MGD 10/15/2019 16:29:05'!
 description
 	^ self changeClassName, '>>', self testSelector, ' FAILED'! !
@@ -4188,6 +4176,10 @@ description
 reportChangeTo: tddGuru
 	tddGuru testFailed: self testReference ! !
 
+!TestPassed methodsFor: 'accessing' stamp: 'MGD 5/31/2019 07:29:27'!
+category
+	^ #testRun! !
+
 !TestPassed methodsFor: 'printing' stamp: 'MGD 10/15/2019 16:29:20'!
 description
 	^ self changeClassName, '>>', self testSelector, ' PASSED'! !
@@ -4195,6 +4187,10 @@ description
 !TestPassed methodsFor: 'reporting' stamp: 'MGD 3/18/2020 21:00:39'!
 reportChangeTo: tddGuru
 	tddGuru testPassed: self testReference! !
+
+!UnknownChange methodsFor: 'accessing' stamp: 'MGD 6/27/2019 11:51:17'!
+category
+	^ #unknown! !
 
 !UnknownChange methodsFor: 'accessing' stamp: 'MGD 6/27/2019 11:52:01'!
 description
@@ -4724,6 +4720,10 @@ testUnexpectedlyFailedErrorMessage: aSymbol class: className
 !TDDState methodsFor: 'accessing' stamp: 'MGD 8/1/2019 17:21:26'!
 isCorrect
 	self subclassResponsibility ! !
+
+!TDDState methodsFor: 'accessing' stamp: 'MGD 10/12/2019 12:43:32'!
+name
+	^ self className ! !
 
 !TDDState methodsFor: 'events' stamp: 'MGD 11/26/2019 15:09:04'!
 analysisFinished
@@ -5647,7 +5647,7 @@ selectedChangeDetail
 
 	^ detail asText! !
 
-!TimeLine methodsFor: 'selection' stamp: 'MGD 9/25/2019 16:56:27'!
+!TimeLine methodsFor: 'selection' stamp: 'HAW 5/21/2022 19:18:46'!
 selectedCode
 	| sourceCode |
 	sourceCode := ''.
@@ -5655,7 +5655,7 @@ selectedCode
 	(selectedEvent notNil and: [ selectedEvent type = #change ]) ifTrue: [ sourceCode := selectedEvent change code ].
 	
 	^ Text 
-		initialFont: Preferences standardCodeFont 
+		initialFont: (PreferenceNG at: #standardCodeFont)
 		stringOrText: sourceCode ! !
 
 !TimeLine methodsFor: 'selection' stamp: 'MGD 6/21/2019 07:35:29'!
@@ -5831,6 +5831,13 @@ from: previousTDDState to: currentTDDState in: aTimeline
 with: aTDDState
 	^ self new tddState: aTDDState ! !
 
+!UninstalledMethodReference methodsFor: 'printing' stamp: 'MGD 9/4/2019 21:07:02'!
+printOn: aStream
+	aStream nextPutAll: 'TestReference '.
+	aStream nextPutAll: className.
+	aStream nextPutAll: '>>'.
+	selector printOn: aStream ! !
+
 !UninstalledMethodReference methodsFor: 'initialization' stamp: 'MGD 9/2/2019 20:06:32'!
 class: aSymbol 
 	className := aSymbol ! !
@@ -5928,9 +5935,9 @@ drawAt: aPoint on: aCanvas
 	stateNamePosition := (width - stringWidth) / 2.
 	aCanvas drawString: stateName at: (stateNamePosition @ aPoint y) font: self font color: Color white! !
 
-!TDDStateIcon methodsFor: 'drawing' stamp: 'MGD 10/1/2019 19:00:50'!
+!TDDStateIcon methodsFor: 'drawing' stamp: 'HAW 5/21/2022 19:19:02'!
 font
-	^ Preferences standardListFont! !
+	^ PreferenceNG at: #standardListFont! !
 
 !TDDStateIcon methodsFor: 'as yet unclassified' stamp: 'JA 5/19/2021 22:33:49'!
 setBalloonText: stringTextOrSymbol! !

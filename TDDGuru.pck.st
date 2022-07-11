@@ -1,6 +1,6 @@
-'From Cuis 6.0 [latest update: #5173] on 21 May 2022 at 8:10:58 pm'!
-'Description Sync with PreferenceNG'!
-!provides: 'TDDGuru' 1 51!
+'From Cuis 6.0 [latest update: #5324] on 11 July 2022 at 8:07:42 pm'!
+'Description Sync with PreferenceSet'!
+!provides: 'TDDGuru' 1 52!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: 'TDDGuru-Tests'!
@@ -980,10 +980,10 @@ changesFileForTests
 
 	^ self changeFileWithExtension: self userChangesForTestFileExtension! !
 
-!TDDGuruTest methodsFor: 'logging' stamp: 'HAW 5/21/2022 19:15:35'!
+!TDDGuruTest methodsFor: 'logging' stamp: 'HAW 7/11/2022 20:05:28'!
 logChangesWhile: aBlockClosure 
 
-	^PreferenceNG 
+	^Preferences
 		withTemporaryValue: self userChangesForTestFileExtension
 		of: #userChangesFileNameExtension
 		do: aBlockClosure! !
@@ -1061,22 +1061,22 @@ classCategoryOfTestData
 
 	^ '__TDDGuru-TestData__'! !
 
-!TDDGuruTest methodsFor: 'initialization' stamp: 'HAW 5/21/2022 19:17:30'!
+!TDDGuruTest methodsFor: 'initialization' stamp: 'HAW 7/11/2022 20:06:00'!
 setUp
 	
 	tddGuru := TDDGuru on: self changesFileForTests.
 	classesByName := Dictionary new.
-	previousUserChangesExtension := PreferenceNG at: #userChangesFileNameExtension.
-	PreferenceNG at: #userChangesFileNameExtension put: self tddGuruTestChangesFileExtension
+	previousUserChangesExtension := Preferences at: #userChangesFileNameExtension.
+	Preferences at: #userChangesFileNameExtension put: self tddGuruTestChangesFileExtension
 ! !
 
-!TDDGuruTest methodsFor: 'finalization' stamp: 'HAW 5/21/2022 19:17:38'!
+!TDDGuruTest methodsFor: 'finalization' stamp: 'HAW 7/11/2022 20:06:22'!
 tearDown
 	
 	self changesFileForTests asFileEntry delete.
 	self tddGuruTestDefaultChangesFile asFileEntry delete.
 	SystemOrganization removeSystemCategory: self classCategoryOfTestData.
-	PreferenceNG at: #userChangesFileNameExtension put: previousUserChangesExtension! !
+	Preferences at: #userChangesFileNameExtension put: previousUserChangesExtension! !
 
 !GreenTest methodsFor: 'tests' stamp: 'MGD 9/9/2019 20:25:59'!
 test01WhenANewTestIsAddedThenIsWritingAFailingTest
@@ -5647,7 +5647,7 @@ selectedChangeDetail
 
 	^ detail asText! !
 
-!TimeLine methodsFor: 'selection' stamp: 'HAW 5/21/2022 19:18:46'!
+!TimeLine methodsFor: 'selection' stamp: 'HAW 7/11/2022 20:07:02'!
 selectedCode
 	| sourceCode |
 	sourceCode := ''.
@@ -5655,7 +5655,7 @@ selectedCode
 	(selectedEvent notNil and: [ selectedEvent type = #change ]) ifTrue: [ sourceCode := selectedEvent change code ].
 	
 	^ Text 
-		initialFont: (PreferenceNG at: #standardCodeFont)
+		initialFont: (Preferences at: #standardCodeFont)
 		stringOrText: sourceCode ! !
 
 !TimeLine methodsFor: 'selection' stamp: 'MGD 6/21/2019 07:35:29'!
@@ -5935,9 +5935,9 @@ drawAt: aPoint on: aCanvas
 	stateNamePosition := (width - stringWidth) / 2.
 	aCanvas drawString: stateName at: (stateNamePosition @ aPoint y) font: self font color: Color white! !
 
-!TDDStateIcon methodsFor: 'drawing' stamp: 'HAW 5/21/2022 19:19:02'!
+!TDDStateIcon methodsFor: 'drawing' stamp: 'HAW 7/11/2022 20:07:22'!
 font
-	^ PreferenceNG at: #standardListFont! !
+	^ Preferences at: #standardListFont! !
 
 !TDDStateIcon methodsFor: 'as yet unclassified' stamp: 'JA 5/19/2021 22:33:49'!
 setBalloonText: stringTextOrSymbol! !

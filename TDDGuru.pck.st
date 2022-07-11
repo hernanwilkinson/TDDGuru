@@ -1,6 +1,6 @@
-'From Cuis 6.0 [latest update: #5324] on 11 July 2022 at 8:07:42 pm'!
+'From Cuis 6.0 [latest update: #5387] on 11 July 2022 at 8:19:19 pm'!
 'Description Sync with PreferenceSet'!
-!provides: 'TDDGuru' 1 52!
+!provides: 'TDDGuru' 1 53!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: 'TDDGuru-Tests'!
@@ -3398,9 +3398,9 @@ changeFileWithExtension: fileExtension
 
 	^(FileIOAccessor default baseNameFor: Smalltalk imageName), fileExtension! !
 
-!TestChangesTest methodsFor: 'helpers' stamp: 'HAW 5/21/2022 19:18:24'!
+!TestChangesTest methodsFor: 'helpers' stamp: 'HAW 7/11/2022 20:18:19'!
 changeUserChangesFileWhile: aBlock
-	^PreferenceNG 
+	^Preferences
 		withTemporaryValue: self userChangesForTestFileExtension
 		of: #userChangesFileNameExtension
 		do: aBlock. 

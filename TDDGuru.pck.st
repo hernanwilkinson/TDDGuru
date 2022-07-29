@@ -1,6 +1,6 @@
-'From Cuis 6.0 [latest update: #5387] on 11 July 2022 at 8:19:19 pm'!
-'Description Sync with PreferenceSet'!
-!provides: 'TDDGuru' 1 53!
+'From Cuis 6.0 [latest update: #5401] on 29 July 2022 at 12:28:34 pm'!
+'Description New submenu option'!
+!provides: 'TDDGuru' 1 54!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: 'TDDGuru-Tests'!
@@ -938,9 +938,10 @@ stateTransitionColor: aTDDState
 successColor
 	^ Color fromHexString: '#006200'! !
 
-!AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 9/26/2019 19:28:12'!
-worldMenuForOpenGroup
+!AnalysisResultWindow class methodsFor: 'colors' stamp: 'HAW 7/28/2022 18:47:16'!
+worldMenuOptions
 	^ `{{
+			#submenuOf -> TheWorldMenu openLabel.
 			#itemGroup 		-> 		40.
 			#itemOrder 		-> 		30.
 			#label 			->			'TDDGuru'.

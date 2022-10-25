@@ -1,6 +1,6 @@
-'From Cuis 6.0 [latest update: #5401] on 29 July 2022 at 12:28:34 pm'!
-'Description New submenu option'!
-!provides: 'TDDGuru' 1 54!
+'From Cuis 6.0 [latest update: #5509] on 25 October 2022 at 5:13:47 pm'!
+'Description Use of isTestSelector'!
+!provides: 'TDDGuru' 1 55!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: 'TDDGuru-Tests'!
@@ -4323,26 +4323,26 @@ newProductionMethodDetector
 newTestClassDetector
 	^ ChangeDetector for: NewTestClass withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #classDefinition and: [ aChangeRecord isTestClassChange ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'HAW 10/26/2019 23:01:27'!
+!ChangeLog methodsFor: 'detectors' stamp: 'HAW 10/25/2022 16:28:25'!
 newTestDetector
 	^ ChangeDetector for: NewTest withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #method 
 		and: [ aChangeRecord isMethodDeletion not ] 
-		and: [ aChangeRecord methodSelector beginsWith: 'test' ]
+		and: [ aChangeRecord methodSelector isTestSelector ]
 		and: [ aChangeRecord prior isNil ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:28:20'!
+!ChangeLog methodsFor: 'detectors' stamp: 'HAW 10/25/2022 16:28:34'!
 productionMethodChangedDetector
 	^ ChangeDetector for: ModelMethodChanged withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #method 
 		and: [ aChangeRecord isMethodDeletion not ] 
-		and: [ (aChangeRecord methodSelector beginsWith: 'test') not ]
+		and: [ (aChangeRecord methodSelector isTestSelector) not ]
 		and: [ aChangeRecord prior notNil ]
 		and: [ (self isATestClass: aChangeRecord changeClassName) not ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:28:35'!
+!ChangeLog methodsFor: 'detectors' stamp: 'HAW 10/25/2022 16:28:43'!
 testChangedDetector
 	^ ChangeDetector for: TestChanged withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #method 
 		and: [ self isATestClass: aChangeRecord changeClassName ]
-		and: [ aChangeRecord methodSelector beginsWith: 'test' ]
+		and: [ aChangeRecord methodSelector isTestSelector ]
 		and: [ aChangeRecord prior isNil not ]]! !
 
 !ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:28:56'!
@@ -4373,14 +4373,14 @@ testRemovedDetector
 	
 	^ ChangeDetector for: TestRemoved withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord isMethodDeletion and: [ isATest value: aChangeRecord ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:21:54'!
+!ChangeLog methodsFor: 'detectors' stamp: 'HAW 10/25/2022 16:28:56'!
 testRenamedDetector
 	| isANewTestChange isAMethodRemovedChange sameClassAndStamp testExists |
 
 	isANewTestChange := [ :changeRecord | 
 		changeRecord changeType = #method 
 		and: [ changeRecord isMethodDeletion not ] 
-		and: [ changeRecord methodSelector beginsWith: 'test' ]
+		and: [ changeRecord methodSelector isTestSelector ]
 		and: [ changeRecord prior isNil ]].
 	isAMethodRemovedChange := [ :changeRecord | changeRecord isMethodDeletion].
 	sameClassAndStamp := [ :previous :current | 
@@ -4395,11 +4395,11 @@ testRenamedDetector
 		and: [ sameClassAndStamp value: changeRecord1 value: changeRecord2 ]
 		and: [ testExists value: changeRecord2 ]]! !
 
-!ChangeLog methodsFor: 'detectors' stamp: 'MGD 6/1/2021 21:29:51'!
+!ChangeLog methodsFor: 'detectors' stamp: 'HAW 10/25/2022 16:29:07'!
 testUtilityChangeDetector
 	^ ChangeDetector for: TestUtilityChanged withLookahead: 1 detectsWhen: [ :aChangeRecord | aChangeRecord changeType = #method 
 		and: [ self isATestClass: aChangeRecord changeClassName ]
-		and: [ (aChangeRecord methodSelector beginsWith: 'test') not ]]! !
+		and: [ (aChangeRecord methodSelector isTestSelector) not ]]! !
 
 !ChangeLog methodsFor: 'detectors' stamp: 'MGD 7/17/2019 11:55:23'!
 unknownChangeDetector

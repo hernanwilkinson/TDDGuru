@@ -1,560 +1,560 @@
-'From Cuis 6.0 [latest update: #5509] on 25 October 2022 at 5:13:47 pm'!
-'Description Use of isTestSelector'!
-!provides: 'TDDGuru' 1 55!
+'From Cuis6.3 [latest update: #6165] on 22 January 2024 at 9:06:36 pm'!
+'Description Tests updated'!
+!provides: 'TDDGuru' 1 56!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
-SystemOrganization addCategory: 'TDDGuru-Tests'!
-SystemOrganization addCategory: 'TDDGuru-Model'!
-SystemOrganization addCategory: 'TDDGuru-Tools'!
+SystemOrganization addCategory: #'TDDGuru-Tests'!
+SystemOrganization addCategory: #'TDDGuru-Model'!
+SystemOrganization addCategory: #'TDDGuru-Tools'!
 
 
-!classDefinition: #InnerChangeListMorph category: 'TDDGuru-Tools'!
+!classDefinition: #InnerChangeListMorph category: #'TDDGuru-Tools'!
 InnerListMorph subclass: #InnerChangeListMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'InnerChangeListMorph class' category: 'TDDGuru-Tools'!
+!classDefinition: 'InnerChangeListMorph class' category: #'TDDGuru-Tools'!
 InnerChangeListMorph class
 	instanceVariableNames: ''!
 
-!classDefinition: #ChangeListMorph category: 'TDDGuru-Tools'!
+!classDefinition: #ChangeListMorph category: #'TDDGuru-Tools'!
 PluggableListMorph subclass: #ChangeListMorph
 	instanceVariableNames: 'analysisResult'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'ChangeListMorph class' category: 'TDDGuru-Tools'!
+!classDefinition: 'ChangeListMorph class' category: #'TDDGuru-Tools'!
 ChangeListMorph class
 	instanceVariableNames: ''!
 
-!classDefinition: #PickAChangeWindow category: 'TDDGuru-Tools'!
+!classDefinition: #PickAChangeWindow category: #'TDDGuru-Tools'!
 ChangeListWindow subclass: #PickAChangeWindow
 	instanceVariableNames: 'changesFileStartPosition'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'PickAChangeWindow class' category: 'TDDGuru-Tools'!
+!classDefinition: 'PickAChangeWindow class' category: #'TDDGuru-Tools'!
 PickAChangeWindow class
 	instanceVariableNames: ''!
 
-!classDefinition: #AnalysisResultWindow category: 'TDDGuru-Tools'!
+!classDefinition: #AnalysisResultWindow category: #'TDDGuru-Tools'!
 SystemWindow subclass: #AnalysisResultWindow
 	instanceVariableNames: 'changeDetail index changeDetailTitle changeCode tddGuru'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'AnalysisResultWindow class' category: 'TDDGuru-Tools'!
+!classDefinition: 'AnalysisResultWindow class' category: #'TDDGuru-Tools'!
 AnalysisResultWindow class
 	instanceVariableNames: ''!
 
-!classDefinition: #TDDGuruTest category: 'TDDGuru-Tests'!
+!classDefinition: #TDDGuruTest category: #'TDDGuru-Tests'!
 TestCase subclass: #TDDGuruTest
 	instanceVariableNames: 'tddGuru classesByName previousUserChangesExtension'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'TDDGuruTest class' category: 'TDDGuru-Tests'!
+!classDefinition: 'TDDGuruTest class' category: #'TDDGuru-Tests'!
 TDDGuruTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #GreenTest category: 'TDDGuru-Tests'!
+!classDefinition: #GreenTest category: #'TDDGuru-Tests'!
 TDDGuruTest subclass: #GreenTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'GreenTest class' category: 'TDDGuru-Tests'!
+!classDefinition: 'GreenTest class' category: #'TDDGuru-Tests'!
 GreenTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #MoreThanOneTestWrittenTest category: 'TDDGuru-Tests'!
+!classDefinition: #MoreThanOneTestWrittenTest category: #'TDDGuru-Tests'!
 TDDGuruTest subclass: #MoreThanOneTestWrittenTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'MoreThanOneTestWrittenTest class' category: 'TDDGuru-Tests'!
+!classDefinition: 'MoreThanOneTestWrittenTest class' category: #'TDDGuru-Tests'!
 MoreThanOneTestWrittenTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #NotDoingTDDTest category: 'TDDGuru-Tests'!
+!classDefinition: #NotDoingTDDTest category: #'TDDGuru-Tests'!
 TDDGuruTest subclass: #NotDoingTDDTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'NotDoingTDDTest class' category: 'TDDGuru-Tests'!
+!classDefinition: 'NotDoingTDDTest class' category: #'TDDGuru-Tests'!
 NotDoingTDDTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #NotStartedTest category: 'TDDGuru-Tests'!
+!classDefinition: #NotStartedTest category: #'TDDGuru-Tests'!
 TDDGuruTest subclass: #NotStartedTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'NotStartedTest class' category: 'TDDGuru-Tests'!
+!classDefinition: 'NotStartedTest class' category: #'TDDGuru-Tests'!
 NotStartedTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #OtherTest category: 'TDDGuru-Tests'!
+!classDefinition: #OtherTest category: #'TDDGuru-Tests'!
 TDDGuruTest subclass: #OtherTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'OtherTest class' category: 'TDDGuru-Tests'!
+!classDefinition: 'OtherTest class' category: #'TDDGuru-Tests'!
 OtherTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #RedTest category: 'TDDGuru-Tests'!
+!classDefinition: #RedTest category: #'TDDGuru-Tests'!
 TDDGuruTest subclass: #RedTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'RedTest class' category: 'TDDGuru-Tests'!
+!classDefinition: 'RedTest class' category: #'TDDGuru-Tests'!
 RedTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #RefactorTest category: 'TDDGuru-Tests'!
+!classDefinition: #RefactorTest category: #'TDDGuru-Tests'!
 TDDGuruTest subclass: #RefactorTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'RefactorTest class' category: 'TDDGuru-Tests'!
+!classDefinition: 'RefactorTest class' category: #'TDDGuru-Tests'!
 RefactorTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #WritingAFailingTestTest category: 'TDDGuru-Tests'!
+!classDefinition: #WritingAFailingTestTest category: #'TDDGuru-Tests'!
 TDDGuruTest subclass: #WritingAFailingTestTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'WritingAFailingTestTest class' category: 'TDDGuru-Tests'!
+!classDefinition: 'WritingAFailingTestTest class' category: #'TDDGuru-Tests'!
 WritingAFailingTestTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestChangesTest category: 'TDDGuru-Tests'!
+!classDefinition: #TestChangesTest category: #'TDDGuru-Tests'!
 TestCase subclass: #TestChangesTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'TestChangesTest class' category: 'TDDGuru-Tests'!
+!classDefinition: 'TestChangesTest class' category: #'TDDGuru-Tests'!
 TestChangesTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #LogTestChangesTest category: 'TDDGuru-Tests'!
+!classDefinition: #LogTestChangesTest category: #'TDDGuru-Tests'!
 TestChangesTest subclass: #LogTestChangesTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'LogTestChangesTest class' category: 'TDDGuru-Tests'!
+!classDefinition: 'LogTestChangesTest class' category: #'TDDGuru-Tests'!
 LogTestChangesTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #ScanTestChangesTest category: 'TDDGuru-Tests'!
+!classDefinition: #ScanTestChangesTest category: #'TDDGuru-Tests'!
 TestChangesTest subclass: #ScanTestChangesTest
 	instanceVariableNames: 'mockClass'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
-!classDefinition: 'ScanTestChangesTest class' category: 'TDDGuru-Tests'!
+!classDefinition: 'ScanTestChangesTest class' category: #'TDDGuru-Tests'!
 ScanTestChangesTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #AnalysisResult category: 'TDDGuru-Model'!
+!classDefinition: #AnalysisResult category: #'TDDGuru-Model'!
 Object subclass: #AnalysisResult
 	instanceVariableNames: 'errors changes currentSelection selectedChange timeline'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'AnalysisResult class' category: 'TDDGuru-Model'!
+!classDefinition: 'AnalysisResult class' category: #'TDDGuru-Model'!
 AnalysisResult class
 	instanceVariableNames: ''!
 
-!classDefinition: #Change category: 'TDDGuru-Model'!
+!classDefinition: #Change category: #'TDDGuru-Model'!
 Object subclass: #Change
 	instanceVariableNames: 'changeRecord'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'Change class' category: 'TDDGuru-Model'!
+!classDefinition: 'Change class' category: #'TDDGuru-Model'!
 Change class
 	instanceVariableNames: ''!
 
-!classDefinition: #ClassChange category: 'TDDGuru-Model'!
+!classDefinition: #ClassChange category: #'TDDGuru-Model'!
 Change subclass: #ClassChange
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ClassChange class' category: 'TDDGuru-Model'!
+!classDefinition: 'ClassChange class' category: #'TDDGuru-Model'!
 ClassChange class
 	instanceVariableNames: ''!
 
-!classDefinition: #ClassRenamed category: 'TDDGuru-Model'!
+!classDefinition: #ClassRenamed category: #'TDDGuru-Model'!
 ClassChange subclass: #ClassRenamed
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ClassRenamed class' category: 'TDDGuru-Model'!
+!classDefinition: 'ClassRenamed class' category: #'TDDGuru-Model'!
 ClassRenamed class
 	instanceVariableNames: ''!
 
-!classDefinition: #ModelClassRemoved category: 'TDDGuru-Model'!
+!classDefinition: #ModelClassRemoved category: #'TDDGuru-Model'!
 ClassChange subclass: #ModelClassRemoved
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ModelClassRemoved class' category: 'TDDGuru-Model'!
+!classDefinition: 'ModelClassRemoved class' category: #'TDDGuru-Model'!
 ModelClassRemoved class
 	instanceVariableNames: ''!
 
-!classDefinition: #NewModelClass category: 'TDDGuru-Model'!
+!classDefinition: #NewModelClass category: #'TDDGuru-Model'!
 ClassChange subclass: #NewModelClass
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NewModelClass class' category: 'TDDGuru-Model'!
+!classDefinition: 'NewModelClass class' category: #'TDDGuru-Model'!
 NewModelClass class
 	instanceVariableNames: ''!
 
-!classDefinition: #NewTestClass category: 'TDDGuru-Model'!
+!classDefinition: #NewTestClass category: #'TDDGuru-Model'!
 ClassChange subclass: #NewTestClass
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NewTestClass class' category: 'TDDGuru-Model'!
+!classDefinition: 'NewTestClass class' category: #'TDDGuru-Model'!
 NewTestClass class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestClassRemoved category: 'TDDGuru-Model'!
+!classDefinition: #TestClassRemoved category: #'TDDGuru-Model'!
 ClassChange subclass: #TestClassRemoved
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestClassRemoved class' category: 'TDDGuru-Model'!
+!classDefinition: 'TestClassRemoved class' category: #'TDDGuru-Model'!
 TestClassRemoved class
 	instanceVariableNames: ''!
 
-!classDefinition: #MethodChange category: 'TDDGuru-Model'!
+!classDefinition: #MethodChange category: #'TDDGuru-Model'!
 Change subclass: #MethodChange
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'MethodChange class' category: 'TDDGuru-Model'!
+!classDefinition: 'MethodChange class' category: #'TDDGuru-Model'!
 MethodChange class
 	instanceVariableNames: ''!
 
-!classDefinition: #MethodRemoved category: 'TDDGuru-Model'!
+!classDefinition: #MethodRemoved category: #'TDDGuru-Model'!
 MethodChange subclass: #MethodRemoved
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'MethodRemoved class' category: 'TDDGuru-Model'!
+!classDefinition: 'MethodRemoved class' category: #'TDDGuru-Model'!
 MethodRemoved class
 	instanceVariableNames: ''!
 
-!classDefinition: #ModelMethodChanged category: 'TDDGuru-Model'!
+!classDefinition: #ModelMethodChanged category: #'TDDGuru-Model'!
 MethodChange subclass: #ModelMethodChanged
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ModelMethodChanged class' category: 'TDDGuru-Model'!
+!classDefinition: 'ModelMethodChanged class' category: #'TDDGuru-Model'!
 ModelMethodChanged class
 	instanceVariableNames: ''!
 
-!classDefinition: #NewModelMethod category: 'TDDGuru-Model'!
+!classDefinition: #NewModelMethod category: #'TDDGuru-Model'!
 MethodChange subclass: #NewModelMethod
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NewModelMethod class' category: 'TDDGuru-Model'!
+!classDefinition: 'NewModelMethod class' category: #'TDDGuru-Model'!
 NewModelMethod class
 	instanceVariableNames: ''!
 
-!classDefinition: #NewTest category: 'TDDGuru-Model'!
+!classDefinition: #NewTest category: #'TDDGuru-Model'!
 MethodChange subclass: #NewTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NewTest class' category: 'TDDGuru-Model'!
+!classDefinition: 'NewTest class' category: #'TDDGuru-Model'!
 NewTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestChanged category: 'TDDGuru-Model'!
+!classDefinition: #TestChanged category: #'TDDGuru-Model'!
 MethodChange subclass: #TestChanged
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestChanged class' category: 'TDDGuru-Model'!
+!classDefinition: 'TestChanged class' category: #'TDDGuru-Model'!
 TestChanged class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestRemoved category: 'TDDGuru-Model'!
+!classDefinition: #TestRemoved category: #'TDDGuru-Model'!
 MethodChange subclass: #TestRemoved
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestRemoved class' category: 'TDDGuru-Model'!
+!classDefinition: 'TestRemoved class' category: #'TDDGuru-Model'!
 TestRemoved class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestUtilityChanged category: 'TDDGuru-Model'!
+!classDefinition: #TestUtilityChanged category: #'TDDGuru-Model'!
 MethodChange subclass: #TestUtilityChanged
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestUtilityChanged class' category: 'TDDGuru-Model'!
+!classDefinition: 'TestUtilityChanged class' category: #'TDDGuru-Model'!
 TestUtilityChanged class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestRenamed category: 'TDDGuru-Model'!
+!classDefinition: #TestRenamed category: #'TDDGuru-Model'!
 Change subclass: #TestRenamed
 	instanceVariableNames: 'newTestChangeRecord testRemovedChangeRecord'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestRenamed class' category: 'TDDGuru-Model'!
+!classDefinition: 'TestRenamed class' category: #'TDDGuru-Model'!
 TestRenamed class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestRun category: 'TDDGuru-Model'!
+!classDefinition: #TestRun category: #'TDDGuru-Model'!
 Change subclass: #TestRun
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestRun class' category: 'TDDGuru-Model'!
+!classDefinition: 'TestRun class' category: #'TDDGuru-Model'!
 TestRun class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestFailed category: 'TDDGuru-Model'!
+!classDefinition: #TestFailed category: #'TDDGuru-Model'!
 TestRun subclass: #TestFailed
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestFailed class' category: 'TDDGuru-Model'!
+!classDefinition: 'TestFailed class' category: #'TDDGuru-Model'!
 TestFailed class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestPassed category: 'TDDGuru-Model'!
+!classDefinition: #TestPassed category: #'TDDGuru-Model'!
 TestRun subclass: #TestPassed
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestPassed class' category: 'TDDGuru-Model'!
+!classDefinition: 'TestPassed class' category: #'TDDGuru-Model'!
 TestPassed class
 	instanceVariableNames: ''!
 
-!classDefinition: #UnknownChange category: 'TDDGuru-Model'!
+!classDefinition: #UnknownChange category: #'TDDGuru-Model'!
 Change subclass: #UnknownChange
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'UnknownChange class' category: 'TDDGuru-Model'!
+!classDefinition: 'UnknownChange class' category: #'TDDGuru-Model'!
 UnknownChange class
 	instanceVariableNames: ''!
 
-!classDefinition: #ChangeDetector category: 'TDDGuru-Model'!
+!classDefinition: #ChangeDetector category: #'TDDGuru-Model'!
 Object subclass: #ChangeDetector
 	instanceVariableNames: 'changeClass lookahead changeDetectedBlock detectBlock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ChangeDetector class' category: 'TDDGuru-Model'!
+!classDefinition: 'ChangeDetector class' category: #'TDDGuru-Model'!
 ChangeDetector class
 	instanceVariableNames: ''!
 
-!classDefinition: #ChangeLog category: 'TDDGuru-Model'!
+!classDefinition: #ChangeLog category: #'TDDGuru-Model'!
 Object subclass: #ChangeLog
 	instanceVariableNames: 'changeList inventory changeDetectors'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ChangeLog class' category: 'TDDGuru-Model'!
+!classDefinition: 'ChangeLog class' category: #'TDDGuru-Model'!
 ChangeLog class
 	instanceVariableNames: ''!
 
-!classDefinition: #TDDGuru category: 'TDDGuru-Model'!
+!classDefinition: #TDDGuru category: #'TDDGuru-Model'!
 Object subclass: #TDDGuru
 	instanceVariableNames: 'changeLog changesFile state analysisResult currentChange inventory initialState initialTestClasses startingPoint previousChange changesFileStartPosition'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TDDGuru class' category: 'TDDGuru-Model'!
+!classDefinition: 'TDDGuru class' category: #'TDDGuru-Model'!
 TDDGuru class
 	instanceVariableNames: ''!
 
-!classDefinition: #TDDState category: 'TDDGuru-Model'!
+!classDefinition: #TDDState category: #'TDDGuru-Model'!
 Object subclass: #TDDState
 	instanceVariableNames: 'context passedTests'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TDDState class' category: 'TDDGuru-Model'!
+!classDefinition: 'TDDState class' category: #'TDDGuru-Model'!
 TDDState class
 	instanceVariableNames: ''!
 
-!classDefinition: #Green category: 'TDDGuru-Model'!
+!classDefinition: #Green category: #'TDDGuru-Model'!
 TDDState subclass: #Green
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'Green class' category: 'TDDGuru-Model'!
+!classDefinition: 'Green class' category: #'TDDGuru-Model'!
 Green class
 	instanceVariableNames: ''!
 
-!classDefinition: #MoreThanOneTestWritten category: 'TDDGuru-Model'!
+!classDefinition: #MoreThanOneTestWritten category: #'TDDGuru-Model'!
 TDDState subclass: #MoreThanOneTestWritten
 	instanceVariableNames: 'firstTest secondTest errorWasReported testAddedChange isCorrect'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'MoreThanOneTestWritten class' category: 'TDDGuru-Model'!
+!classDefinition: 'MoreThanOneTestWritten class' category: #'TDDGuru-Model'!
 MoreThanOneTestWritten class
 	instanceVariableNames: ''!
 
-!classDefinition: #NotDoingTDD category: 'TDDGuru-Model'!
+!classDefinition: #NotDoingTDD category: #'TDDGuru-Model'!
 TDDState subclass: #NotDoingTDD
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NotDoingTDD class' category: 'TDDGuru-Model'!
+!classDefinition: 'NotDoingTDD class' category: #'TDDGuru-Model'!
 NotDoingTDD class
 	instanceVariableNames: ''!
 
-!classDefinition: #NotStarted category: 'TDDGuru-Model'!
+!classDefinition: #NotStarted category: #'TDDGuru-Model'!
 TDDState subclass: #NotStarted
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'NotStarted class' category: 'TDDGuru-Model'!
+!classDefinition: 'NotStarted class' category: #'TDDGuru-Model'!
 NotStarted class
 	instanceVariableNames: ''!
 
-!classDefinition: #Red category: 'TDDGuru-Model'!
+!classDefinition: #Red category: #'TDDGuru-Model'!
 TDDState subclass: #Red
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'Red class' category: 'TDDGuru-Model'!
+!classDefinition: 'Red class' category: #'TDDGuru-Model'!
 Red class
 	instanceVariableNames: ''!
 
-!classDefinition: #Refactor category: 'TDDGuru-Model'!
+!classDefinition: #Refactor category: #'TDDGuru-Model'!
 TDDState subclass: #Refactor
 	instanceVariableNames: 'newMethods changedMethods'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'Refactor class' category: 'TDDGuru-Model'!
+!classDefinition: 'Refactor class' category: #'TDDGuru-Model'!
 Refactor class
 	instanceVariableNames: ''!
 
-!classDefinition: #WritingAFailingTest category: 'TDDGuru-Model'!
+!classDefinition: #WritingAFailingTest category: #'TDDGuru-Model'!
 TDDState subclass: #WritingAFailingTest
 	instanceVariableNames: 'test'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'WritingAFailingTest class' category: 'TDDGuru-Model'!
+!classDefinition: 'WritingAFailingTest class' category: #'TDDGuru-Model'!
 WritingAFailingTest class
 	instanceVariableNames: ''!
 
-!classDefinition: #TestInventory category: 'TDDGuru-Model'!
+!classDefinition: #TestInventory category: #'TDDGuru-Model'!
 Object subclass: #TestInventory
 	instanceVariableNames: 'testClasses tests'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TestInventory class' category: 'TDDGuru-Model'!
+!classDefinition: 'TestInventory class' category: #'TDDGuru-Model'!
 TestInventory class
 	instanceVariableNames: ''!
 
-!classDefinition: #TimeLine category: 'TDDGuru-Model'!
+!classDefinition: #TimeLine category: #'TDDGuru-Model'!
 Object subclass: #TimeLine
 	instanceVariableNames: 'events selectedEvent changes statesAfterChanges analysisResult currentSection'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TimeLine class' category: 'TDDGuru-Model'!
+!classDefinition: 'TimeLine class' category: #'TDDGuru-Model'!
 TimeLine class
 	instanceVariableNames: ''!
 
-!classDefinition: #TimeLineEvent category: 'TDDGuru-Model'!
+!classDefinition: #TimeLineEvent category: #'TDDGuru-Model'!
 Object subclass: #TimeLineEvent
 	instanceVariableNames: 'timeline'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'TimeLineEvent class' category: 'TDDGuru-Model'!
+!classDefinition: 'TimeLineEvent class' category: #'TDDGuru-Model'!
 TimeLineEvent class
 	instanceVariableNames: ''!
 
-!classDefinition: #ChangeEvent category: 'TDDGuru-Model'!
+!classDefinition: #ChangeEvent category: #'TDDGuru-Model'!
 TimeLineEvent subclass: #ChangeEvent
 	instanceVariableNames: 'change'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'ChangeEvent class' category: 'TDDGuru-Model'!
+!classDefinition: 'ChangeEvent class' category: #'TDDGuru-Model'!
 ChangeEvent class
 	instanceVariableNames: ''!
 
-!classDefinition: #StateTransitionEvent category: 'TDDGuru-Model'!
+!classDefinition: #StateTransitionEvent category: #'TDDGuru-Model'!
 TimeLineEvent subclass: #StateTransitionEvent
 	instanceVariableNames: 'fromState toState'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'StateTransitionEvent class' category: 'TDDGuru-Model'!
+!classDefinition: 'StateTransitionEvent class' category: #'TDDGuru-Model'!
 StateTransitionEvent class
 	instanceVariableNames: ''!
 
-!classDefinition: #UninstalledMethodReference category: 'TDDGuru-Model'!
+!classDefinition: #UninstalledMethodReference category: #'TDDGuru-Model'!
 Object subclass: #UninstalledMethodReference
 	instanceVariableNames: 'selector className sourceCode overrides'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
-!classDefinition: 'UninstalledMethodReference class' category: 'TDDGuru-Model'!
+!classDefinition: 'UninstalledMethodReference class' category: #'TDDGuru-Model'!
 UninstalledMethodReference class
 	instanceVariableNames: ''!
 
-!classDefinition: #TDDStateIcon category: 'TDDGuru-Tools'!
+!classDefinition: #TDDStateIcon category: #'TDDGuru-Tools'!
 Object subclass: #TDDStateIcon
 	instanceVariableNames: 'tddState width height'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tools'!
-!classDefinition: 'TDDStateIcon class' category: 'TDDGuru-Tools'!
+!classDefinition: 'TDDStateIcon class' category: #'TDDGuru-Tools'!
 TDDStateIcon class
 	instanceVariableNames: ''!
 
@@ -951,6 +951,13 @@ worldMenuOptions
 			#balloonText 	-> 		'Learn TDD by analyzing your change log'.
 		} asDictionary}`! !
 
+!TDDGuruTest methodsFor: 'assertions' stamp: 'HAW 1/20/2024 13:11:14'!
+assert: expected equals: actual
+	"This tests assumes the order of arguments used by Cuis before July 31, 2023,
+	and also used by Squeak."
+
+	super assert: actual equals: expected! !
+
 !TDDGuruTest methodsFor: 'assertions' stamp: 'MGD 5/20/2019 19:40:16'!
 assert: aResult hasErrorWithDescription: aDescription
 	self assert: (aResult errors includes: aDescription)! !
@@ -971,10 +978,10 @@ assertCurrentStateIs: aState
 assertHasNoErrors: aResult
 	self assert: aResult hasNErrors: 0.! !
 
-!TDDGuruTest methodsFor: 'logging' stamp: 'MGD 12/19/2019 16:59:06'!
+!TDDGuruTest methodsFor: 'logging' stamp: 'HAW 1/20/2024 12:59:07'!
 changeFileWithExtension: fileExtension
 
-	^(FileIOAccessor default baseNameFor: Smalltalk imageName), fileExtension! !
+	^(DirectoryEntry userChangesDirectory // ((FileIOAccessor default baseNameFor: Smalltalk imageName pathAndLocalName second), fileExtension)) pathName! !
 
 !TDDGuruTest methodsFor: 'logging' stamp: 'MGD 12/19/2019 16:59:28'!
 changesFileForTests
@@ -1062,7 +1069,7 @@ classCategoryOfTestData
 
 	^ '__TDDGuru-TestData__'! !
 
-!TDDGuruTest methodsFor: 'initialization' stamp: 'HAW 7/11/2022 20:06:00'!
+!TDDGuruTest methodsFor: 'initialization' stamp: 'HAW 1/20/2024 12:53:00'!
 setUp
 	
 	tddGuru := TDDGuru on: self changesFileForTests.
@@ -3394,10 +3401,11 @@ test23WhenATestClassIsRemovedIsNotDoingTDD
 	self assert: result hasErrorWithDescription: (TDDGuru classRemovedBeforeRunningTests: #TestSomethingA).
 	self assert: tddGuru currentState equals: NotDoingTDD.! !
 
-!TestChangesTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 17:33:03'!
+!TestChangesTest methodsFor: 'helpers' stamp: 'HAW 1/20/2024 13:00:26'!
 changeFileWithExtension: fileExtension
 
-	^(FileIOAccessor default baseNameFor: Smalltalk imageName), fileExtension! !
+	^(DirectoryEntry userChangesDirectory // ((FileIOAccessor default baseNameFor: Smalltalk imageName pathAndLocalName second), fileExtension)) pathName
+	! !
 
 !TestChangesTest methodsFor: 'helpers' stamp: 'HAW 7/11/2022 20:18:19'!
 changeUserChangesFileWhile: aBlock

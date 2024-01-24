@@ -1,6 +1,6 @@
-'From Cuis6.3 [latest update: #6165] on 22 January 2024 at 9:06:36 pm'!
-'Description Tests updated'!
-!provides: 'TDDGuru' 1 56!
+'From Cuis6.3 [latest update: #6169] on 24 January 2024 at 8:02:07 pm'!
+'Description Does not save test results to changes but only to user.changes'!
+!provides: 'TDDGuru' 1 57!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
@@ -910,10 +910,14 @@ pickStartPositionFromSnapshots: userChangesFileName
 				startUpWithCaption: 'Browse as far back as...'.
 ! !
 
-!AnalysisResultWindow class methodsFor: 'colors' stamp: 'MGD 11/21/2019 18:07:25'!
+!AnalysisResultWindow class methodsFor: 'colors' stamp: 'HAW 1/24/2024 19:52:44'!
 startAnalysis
 	| selected changesFile userChangesFileName |
-	userChangesFileName := FillInTheBlankMorph request: 'Where are the changes logged?' initialAnswer: Smalltalk defaultUserChangesName onCancel: [ ^ nil ]. 	
+	
+	userChangesFileName := FillInTheBlankMorph 
+		request: 'Where are the changes logged?' 
+		initialAnswer: (DirectoryEntry userChangesDirectory // Smalltalk userChangesFileName) pathName
+		onCancel: [ ^ nil ]. 	
 	changesFile := userChangesFileName asFileEntry.
 	
 	changesFile exists ifTrue: [
@@ -5955,11 +5959,11 @@ setBalloonText: stringTextOrSymbol! !
 for: aTDDState width: widthNumber height: heightNumber
 	^ self new for: aTDDState width: widthNumber height: heightNumber.! !
 
-!TestCase methodsFor: '*TDDGuru' stamp: 'HAW 10/26/2019 23:09:43'!
+!TestCase methodsFor: '*TDDGuru' stamp: 'HAW 1/24/2024 19:59:37'!
 logRunWithResult: aString
 
 	Smalltalk 
-		logChange: aString 
+		logToUserChanges: aString 
 		preamble: 'testRun: ', self class name printString, ' ', self selector printString, ' stamp: ', Utilities changeStamp printString.! !
 
 !TestCase methodsFor: '*TDDGuru' stamp: 'HAW 10/27/2019 00:21:21'!

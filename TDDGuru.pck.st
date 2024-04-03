@@ -1,6 +1,6 @@
-'From Cuis6.3 [latest update: #6169] on 24 January 2024 at 8:02:07 pm'!
-'Description Does not save test results to changes but only to user.changes'!
-!provides: 'TDDGuru' 1 57!
+'From Cuis6.3 [latest update: #6311] on 3 April 2024 at 1:16:02 pm'!
+'Description performTest initializes assertionCount'!
+!provides: 'TDDGuru' 1 58!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
@@ -5966,11 +5966,11 @@ logRunWithResult: aString
 		logToUserChanges: aString 
 		preamble: 'testRun: ', self class name printString, ' ', self selector printString, ' stamp: ', Utilities changeStamp printString.! !
 
-!TestCase methodsFor: '*TDDGuru' stamp: 'HAW 10/27/2019 00:21:21'!
+!TestCase methodsFor: '*TDDGuru' stamp: 'HAW 4/3/2024 13:14:38'!
 performTest
-	[
-		self perform: testSelector asSymbol.
-	  	self logRunWithResult: 'PASSED'. ] 
+	[assertCount := 0.
+	self perform: testSelector asSymbol.
+  	self logRunWithResult: 'PASSED'. ] 
 		on: TestFailure 
 		do: [ :failure | 
 			self logRunWithResult: 'FAILURE'.

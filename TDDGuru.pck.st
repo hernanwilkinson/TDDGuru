@@ -1,6 +1,6 @@
-'From Cuis7.1 [latest update: #6578] on 10 August 2024 at 4:43:40 pm'!
+'From Cuis7.1 [latest update: #6578] on 11 August 2024 at 2:39:59 pm'!
 'Description Udated to Cuis 7.1'!
-!provides: 'TDDGuru' 1 59!
+!provides: 'TDDGuru' 1 60!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
@@ -5656,12 +5656,12 @@ changesFileForTests
 classCategoryOfTestData
 	^ '__TDDGuru-TestData__'! !
 
-!TestChangesTest methodsFor: 'helpers' stamp: 'MGD 3/17/2020 15:52:00'!
+!TestChangesTest methodsFor: 'helpers' stamp: 'HAW 8/11/2024 14:38:50'!
 createTestClass
 
 	| testClass |
 	testClass := TestCase 
-		subclass: 'TestChangesTestData' 
+		subclass: #TestChangesTestData
 		instanceVariableNames: '' 
 		classVariableNames: '' 
 		poolDictionaries: '' 

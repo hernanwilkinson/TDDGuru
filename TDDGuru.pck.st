@@ -1,22 +1,12 @@
-'From Cuis7.1 [latest update: #6578] on 11 August 2024 at 2:39:59 pm'!
-'Description Udated to Cuis 7.1'!
-!provides: 'TDDGuru' 1 60!
+'From Cuis7.3 [latest update: #7095] on 4 April 2025 at 4:44:46 pm'!
+'Description Test cleanup'!
+!provides: 'TDDGuru' 1 61!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
 SystemOrganization addCategory: #'TDDGuru-Model'!
 SystemOrganization addCategory: #'TDDGuru-Tools'!
 
-
-!classDefinition: #InnerChangeListMorph category: #'TDDGuru-Tools'!
-InnerListMorph subclass: #InnerChangeListMorph
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TDDGuru-Tools'!
-!classDefinition: 'InnerChangeListMorph class' category: #'TDDGuru-Tools'!
-InnerChangeListMorph class
-	instanceVariableNames: ''!
 
 !classDefinition: #ChangeListMorph category: #'TDDGuru-Tools'!
 PluggableListMorph subclass: #ChangeListMorph
@@ -46,6 +36,16 @@ SystemWindow subclass: #AnalysisResultWindow
 	category: 'TDDGuru-Tools'!
 !classDefinition: 'AnalysisResultWindow class' category: #'TDDGuru-Tools'!
 AnalysisResultWindow class
+	instanceVariableNames: ''!
+
+!classDefinition: #InnerChangeListMorph category: #'TDDGuru-Tools'!
+InnerListMorph subclass: #InnerChangeListMorph
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TDDGuru-Tools'!
+!classDefinition: 'InnerChangeListMorph class' category: #'TDDGuru-Tools'!
+InnerChangeListMorph class
 	instanceVariableNames: ''!
 
 !classDefinition: #AnalysisResult category: #'TDDGuru-Model'!
@@ -439,8 +439,8 @@ TDDStateIcon class
 	instanceVariableNames: ''!
 
 !classDefinition: #TDDGuruTest category: #'TDDGuru-Tests'!
-TestCase subclass: #TDDGuruTest
-	instanceVariableNames: 'tddGuru classesByName previousUserChangesExtension'
+DynamicallyCodeCreationTest subclass: #TDDGuruTest
+	instanceVariableNames: 'tddGuru previousUserChangesExtension'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Tests'!
@@ -558,95 +558,6 @@ TestChangesTest subclass: #ScanTestChangesTest
 ScanTestChangesTest class
 	instanceVariableNames: ''!
 
-
-!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 10/3/2019 19:16:38'!
-colorForChange: aChange	
-	(owner analysisResult isCorrect: aChange) ifTrue: [ ^ AnalysisResultWindow successColor ] ifFalse: [ ^ AnalysisResultWindow errorColor ]! !
-
-!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 9/29/2019 19:37:26'!
-colorForStateTransition: aTDDState
-	^ AnalysisResultWindow stateTransitionColor: aTDDState 
-! !
-
-!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 10/15/2019 18:53:17'!
-drawChangeRow: aRow on: aCanvas	
-	self drawIconFor: aRow in: aCanvas.
-	self drawChangeTextFor: aRow in: aCanvas.
-
-		
-	
-! !
-
-!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 9/29/2019 19:43:04'!
-drawChangeTextFor: aRow in: aCanvas
-	aCanvas
-		drawString: (self item: aRow) displayStringOrText
-		at: 25 @ (self drawYForRow: aRow)
-		font: font
-		color: (self colorForRow: aRow).
-		
-	
-! !
-
-!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 11/5/2019 12:10:42'!
-drawIconFor: aRow in: aCanvas
-	| currentEvent stateAfterChange icon |
-		
-	currentEvent := owner model changeAt: aRow.
-	stateAfterChange := owner model stateAfter: currentEvent change.
-	icon := TDDStateIcon for: stateAfterChange width: 20 height: (font lineSpacing - 1).
-	icon drawAt: (0 @ (self drawYForRow: aRow)) on: aCanvas.
-	icon setBalloonText: stateAfterChange asString 
-! !
-
-!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 9/29/2019 19:20:09'!
-drawRow: aRow on: aCanvas
-	| currentEvent |
-	currentEvent := owner model changeAt: aRow.
-	
-	currentEvent type = #change ifTrue: [ self drawChangeRow: aRow on: aCanvas ].
-	currentEvent type = #stateTransition ifTrue: [ self drawStateTransitionRow: aRow on: aCanvas ].
-	
-! !
-
-!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 9/29/2019 19:34:10'!
-drawStateTransitionRow: aRow on: aCanvas
-	| currentEvent stateName stringWidth stateNamePosition |
-	currentEvent := owner model changeAt: aRow.
-	
-	stateName := currentEvent stateTo printString.
-	stringWidth := font widthOfString: stateName.
-	stateNamePosition := (self desiredWidth - stringWidth) / 2.
-	aCanvas drawString: stateName at: (stateNamePosition @ (self drawYForRow: aRow)) font: font color: Color white
-	
-	
-! !
-
-!InnerChangeListMorph methodsFor: 'drawing' stamp: 'MGD 9/29/2019 19:20:09'!
-colorForRow: row
-	| event |
-	event := owner model changeAt: row.
-	
-	(event type = #change) ifTrue: [ ^ self colorForChange: event change ].
-	(event type = #stateTransition) ifTrue: [ ^ self colorForStateTransition: event ].
-
-	^ super colorForRow: row! !
-
-!InnerChangeListMorph methodsFor: 'drawing' stamp: 'MGD 9/17/2019 19:51:21'!
-drawOn: aCanvas
-
-	listItems size = 0 ifTrue: [ ^self ].
- 
-	self drawHighlightOn: aCanvas.
-	self drawSelectionOn: aCanvas.
-	
-
-	(self topVisibleRowForCanvas: aCanvas)
-		to: (self bottomVisibleRowForCanvas: aCanvas)
-		do: [ :row |
-			(owner itemSelectedAmongMultiple:  row) ifTrue: [
-				self drawBackgroundForMulti: row on: aCanvas. ].
-			self drawRow: row on: aCanvas ]! !
 
 !ChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 6/21/2019 08:03:33'!
 analysisResult
@@ -951,6 +862,95 @@ worldMenuOptions
 			#icon 			-> 		#worldIcon.
 			#balloonText 	-> 		'Learn TDD by analyzing your change log'.
 		} asDictionary}`! !
+
+!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 10/3/2019 19:16:38'!
+colorForChange: aChange	
+	(owner analysisResult isCorrect: aChange) ifTrue: [ ^ AnalysisResultWindow successColor ] ifFalse: [ ^ AnalysisResultWindow errorColor ]! !
+
+!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 9/29/2019 19:37:26'!
+colorForStateTransition: aTDDState
+	^ AnalysisResultWindow stateTransitionColor: aTDDState 
+! !
+
+!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 10/15/2019 18:53:17'!
+drawChangeRow: aRow on: aCanvas	
+	self drawIconFor: aRow in: aCanvas.
+	self drawChangeTextFor: aRow in: aCanvas.
+
+		
+	
+! !
+
+!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 9/29/2019 19:43:04'!
+drawChangeTextFor: aRow in: aCanvas
+	aCanvas
+		drawString: (self item: aRow) displayStringOrText
+		at: 25 @ (self drawYForRow: aRow)
+		font: font
+		color: (self colorForRow: aRow).
+		
+	
+! !
+
+!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 11/5/2019 12:10:42'!
+drawIconFor: aRow in: aCanvas
+	| currentEvent stateAfterChange icon |
+		
+	currentEvent := owner model changeAt: aRow.
+	stateAfterChange := owner model stateAfter: currentEvent change.
+	icon := TDDStateIcon for: stateAfterChange width: 20 height: (font lineSpacing - 1).
+	icon drawAt: (0 @ (self drawYForRow: aRow)) on: aCanvas.
+	icon setBalloonText: stateAfterChange asString 
+! !
+
+!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 9/29/2019 19:20:09'!
+drawRow: aRow on: aCanvas
+	| currentEvent |
+	currentEvent := owner model changeAt: aRow.
+	
+	currentEvent type = #change ifTrue: [ self drawChangeRow: aRow on: aCanvas ].
+	currentEvent type = #stateTransition ifTrue: [ self drawStateTransitionRow: aRow on: aCanvas ].
+	
+! !
+
+!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 9/29/2019 19:34:10'!
+drawStateTransitionRow: aRow on: aCanvas
+	| currentEvent stateName stringWidth stateNamePosition |
+	currentEvent := owner model changeAt: aRow.
+	
+	stateName := currentEvent stateTo printString.
+	stringWidth := font widthOfString: stateName.
+	stateNamePosition := (self desiredWidth - stringWidth) / 2.
+	aCanvas drawString: stateName at: (stateNamePosition @ (self drawYForRow: aRow)) font: font color: Color white
+	
+	
+! !
+
+!InnerChangeListMorph methodsFor: 'drawing' stamp: 'MGD 9/29/2019 19:20:09'!
+colorForRow: row
+	| event |
+	event := owner model changeAt: row.
+	
+	(event type = #change) ifTrue: [ ^ self colorForChange: event change ].
+	(event type = #stateTransition) ifTrue: [ ^ self colorForStateTransition: event ].
+
+	^ super colorForRow: row! !
+
+!InnerChangeListMorph methodsFor: 'drawing' stamp: 'MGD 9/17/2019 19:51:21'!
+drawOn: aCanvas
+
+	listItems size = 0 ifTrue: [ ^self ].
+ 
+	self drawHighlightOn: aCanvas.
+	self drawSelectionOn: aCanvas.
+	
+
+	(self topVisibleRowForCanvas: aCanvas)
+		to: (self bottomVisibleRowForCanvas: aCanvas)
+		do: [ :row |
+			(owner itemSelectedAmongMultiple:  row) ifTrue: [
+				self drawBackgroundForMulti: row on: aCanvas. ].
+			self drawRow: row on: aCanvas ]! !
 
 !AnalysisResult methodsFor: 'initialization' stamp: 'MGD 1/3/2020 08:41:52'!
 initialize
@@ -3244,9 +3244,10 @@ userChangesForTestFileExtension
 
 	^'.test.changes'! !
 
-!TDDGuruTest methodsFor: 'helpers' stamp: 'MGD 9/9/2019 20:25:59'!
+!TDDGuruTest methodsFor: 'helpers' stamp: 'HAW 4/4/2025 16:41:29'!
 classNamed: className 
-	^ classesByName at: className ! !
+
+	^ Smalltalk classNamed: className! !
 
 !TDDGuruTest methodsFor: 'helpers' stamp: 'MGD 9/9/2019 20:25:59'!
 compileMethod: aString in: className 
@@ -3255,34 +3256,44 @@ compileMethod: aString in: className
 	
 	class compile: aString.! !
 
-!TDDGuruTest methodsFor: 'helpers' stamp: 'HAW 11/1/2019 15:48:48'!
-newClassNamed: aSymbol subclassOf: aClass 
-	| newClass |
-	newClass := aClass subclass: aSymbol instanceVariableNames: '' classVariableNames: '' poolDictionaries: '' category: self classCategoryOfTestData.
-	classesByName at: aSymbol put: newClass.
+!TDDGuruTest methodsFor: 'helpers' stamp: 'HAW 4/4/2025 16:43:28'!
+newClassNamed: aClassName subclassOf: aSuperclass
+ 
+	| newClass superclass |
+	
+	"This is to avoid generating changes for model classes - Hernan"
+	superclass := aSuperclass = Object 
+		ifTrue: [ self defaultSuperclass ] 
+		ifFalse: [ aSuperclass ].
+		
+	newClass := self 
+		createClassNamed: aClassName 
+		subclassOf: superclass 
+		category: self classCategoryOfTestData.
 	
 	^ newClass! !
 
-!TDDGuruTest methodsFor: 'helpers' stamp: 'MGD 11/2/2019 17:19:39'!
-removeClass: aSymbol 
+!TDDGuruTest methodsFor: 'helpers' stamp: 'HAW 4/4/2025 16:42:30'!
+removeClass: aClassName 
+
 	| class |
-	class := self classNamed: aSymbol.
+	
+	class := self classNamed: aClassName.
 	class removeFromSystem.
-	classesByName removeKey: aSymbol.! !
+	! !
 
 !TDDGuruTest methodsFor: 'helpers' stamp: 'MGD 9/9/2019 20:25:59'!
 removeMethodWithSelector: aSymbol from: className 
 	(self classNamed: className) removeSelector: aSymbol ! !
 
-!TDDGuruTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 19:38:12'!
-renameClass: aSymbol to: aSymbol2 
-	| class |
-	class := self classNamed: aSymbol.
+!TDDGuruTest methodsFor: 'helpers' stamp: 'HAW 4/4/2025 16:43:08'!
+renameClass: aFromClassName to: aToClassName 
 	
-	classesByName removeKey: aSymbol.
-	classesByName at: aSymbol2 put: class.
+	| fromClass |
 	
-	class rename: aSymbol2.! !
+	fromClass := self classNamed: aFromClassName.
+	
+	fromClass rename: aToClassName.! !
 
 !TDDGuruTest methodsFor: 'helpers' stamp: 'MGD 9/14/2019 11:35:49'!
 runAllTestsOf: aSymbol 
@@ -3302,22 +3313,34 @@ classCategoryOfTestData
 
 	^ '__TDDGuru-TestData__'! !
 
-!TDDGuruTest methodsFor: 'initialization' stamp: 'HAW 1/20/2024 12:53:00'!
+!TDDGuruTest methodsFor: 'initialization' stamp: 'HAW 4/4/2025 16:43:55'!
 setUp
 	
+	super setUp.
+	
 	tddGuru := TDDGuru on: self changesFileForTests.
-	classesByName := Dictionary new.
 	previousUserChangesExtension := Preferences at: #userChangesFileNameExtension.
 	Preferences at: #userChangesFileNameExtension put: self tddGuruTestChangesFileExtension
 ! !
 
-!TDDGuruTest methodsFor: 'finalization' stamp: 'HAW 7/11/2022 20:06:22'!
+!TDDGuruTest methodsFor: 'finalization' stamp: 'HAW 4/4/2025 16:35:53'!
 tearDown
+	
+	| testDataChangeSet testDataPackage |
+	
+	super tearDown.
 	
 	self changesFileForTests asFileEntry delete.
 	self tddGuruTestDefaultChangesFile asFileEntry delete.
-	SystemOrganization removeSystemCategory: self classCategoryOfTestData.
-	Preferences at: #userChangesFileNameExtension put: previousUserChangesExtension! !
+	"SystemOrganization removeSystemCategory: self classCategoryOfTestData."
+	
+	Preferences at: #userChangesFileNameExtension put: previousUserChangesExtension.
+	
+	testDataPackage := CodePackage packageOfSystemCategory: self classCategoryOfTestData ifNone: [ ^self ].
+	testDataChangeSet := ChangeSet changeSetForPackage: testDataPackage.
+	testDataChangeSet ifNotNil: [ ChangeSet removeChangeSet: testDataChangeSet ].
+		
+! !
 
 !GreenTest methodsFor: 'tests' stamp: 'MGD 9/9/2019 20:25:59'!
 test01WhenANewTestIsAddedThenIsWritingAFailingTest

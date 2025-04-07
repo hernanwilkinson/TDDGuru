@@ -1,6 +1,6 @@
-'From Cuis7.3 [latest update: #7095] on 4 April 2025 at 4:44:46 pm'!
+'From Cuis7.3 [latest update: #7095] on 7 April 2025 at 5:54:04 pm'!
 'Description Test cleanup'!
-!provides: 'TDDGuru' 1 61!
+!provides: 'TDDGuru' 1 62!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
@@ -529,7 +529,7 @@ WritingAFailingTestTest class
 	instanceVariableNames: ''!
 
 !classDefinition: #TestChangesTest category: #'TDDGuru-Tests'!
-TestCase subclass: #TestChangesTest
+DynamicallyCodeCreationTest subclass: #TestChangesTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -3323,7 +3323,7 @@ setUp
 	Preferences at: #userChangesFileNameExtension put: self tddGuruTestChangesFileExtension
 ! !
 
-!TDDGuruTest methodsFor: 'finalization' stamp: 'HAW 4/4/2025 16:35:53'!
+!TDDGuruTest methodsFor: 'finalization' stamp: 'HAW 4/7/2025 17:39:07'!
 tearDown
 	
 	| testDataChangeSet testDataPackage |
@@ -3332,7 +3332,6 @@ tearDown
 	
 	self changesFileForTests asFileEntry delete.
 	self tddGuruTestDefaultChangesFile asFileEntry delete.
-	"SystemOrganization removeSystemCategory: self classCategoryOfTestData."
 	
 	Preferences at: #userChangesFileNameExtension put: previousUserChangesExtension.
 	
@@ -5679,15 +5678,13 @@ changesFileForTests
 classCategoryOfTestData
 	^ '__TDDGuru-TestData__'! !
 
-!TestChangesTest methodsFor: 'helpers' stamp: 'HAW 8/11/2024 14:38:50'!
+!TestChangesTest methodsFor: 'helpers' stamp: 'HAW 4/7/2025 17:47:05'!
 createTestClass
 
 	| testClass |
-	testClass := TestCase 
-		subclass: #TestChangesTestData
-		instanceVariableNames: '' 
-		classVariableNames: '' 
-		poolDictionaries: '' 
+	testClass := self 
+		createClassNamed: #TestChangesTestData 
+		subclassOf:  TestCase 
 		category: self classCategoryOfTestData.
 		
 	testClass compile: 'aTestThatPass self assert: true'.
@@ -5705,14 +5702,11 @@ createTestClassSubclassOf: aClass named: aName
 		poolDictionaries: '' 
 		category: self classCategoryOfTestData.! !
 
-!TestChangesTest methodsFor: 'helpers' stamp: 'MGD 3/17/2020 15:29:23'!
+!TestChangesTest methodsFor: 'helpers' stamp: 'HAW 4/7/2025 17:43:16'!
 createTestDataClass.
 
-	^ Object 
-		subclass: self testDataClassName 
-		instanceVariableNames: '' 
-		classVariableNames: '' 
-		poolDictionaries: '' 
+	^self 
+		createClassNamed: self testDataClassName 
 		category: self classCategoryOfTestData.! !
 
 !TestChangesTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 16:05:00'!
@@ -5724,18 +5718,27 @@ scanChangesFromFile
 
 	^ changeList changeList.! !
 
+!TestChangesTest methodsFor: 'helpers' stamp: 'MGD 3/17/2020 16:19:05'!
+testDataClassName
+	^ #TestChangesTestClass__! !
+
 !TestChangesTest methodsFor: 'helpers' stamp: 'MGD 12/19/2019 16:03:48'!
 userChangesForTestFileExtension
 	^ '.test.changes'! !
 
-!TestChangesTest methodsFor: 'setUp/tearDown' stamp: 'MGD 12/19/2019 17:33:41'!
+!TestChangesTest methodsFor: 'setUp/tearDown' stamp: 'HAW 4/7/2025 17:53:10'!
 tearDown
-	self changesFileForTests asFileEntry delete.
-	SystemOrganization removeSystemCategory: self classCategoryOfTestData.! !
 
-!TestChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/17/2020 16:19:05'!
-testDataClassName
-	^ #TestChangesTestClass__! !
+	| testDataChangeSet testDataPackage |
+	
+	super tearDown.
+	
+	self changesFileForTests asFileEntry delete.
+	
+	testDataPackage := CodePackage packageOfSystemCategory: self classCategoryOfTestData ifNone: [ ^self ].
+	testDataChangeSet := ChangeSet changeSetForPackage: testDataPackage.
+	testDataChangeSet ifNotNil: [ ChangeSet removeChangeSet: testDataChangeSet ].
+! !
 
 !LogTestChangesTest methodsFor: 'tests' stamp: 'MGD 3/17/2020 16:02:10'!
 test01RunningAPassingTestShouldBeLogged
@@ -5847,7 +5850,7 @@ test06WhenAMethodIsChangedItIsNotConsideredOverriden
 runTest: aTestSelector of: aTestClass
 	[ aTestClass run: aTestSelector ] on: Error do: []! !
 
-!LogTestChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 12/19/2019 16:24:17'!
+!LogTestChangesTest methodsFor: 'assertions' stamp: 'MGD 12/19/2019 16:24:17'!
 assertIsLogged: aString times: stringCount
 	| logContent startPosition indexOfSubstring |
 
@@ -5868,17 +5871,17 @@ assertIsLogged: aString times: stringCount
 
 	! !
 
-!LogTestChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 12/19/2019 16:23:03'!
+!LogTestChangesTest methodsFor: 'assertions' stamp: 'MGD 12/19/2019 16:23:03'!
 assertIsLoggedOnce: aString
 	self assertIsLogged: aString times: 1.
 	! !
 
-!LogTestChangesTest methodsFor: 'as yet unclassified' stamp: 'MGD 3/17/2020 16:23:22'!
+!LogTestChangesTest methodsFor: 'assertions' stamp: 'MGD 3/17/2020 16:23:22'!
 assertIsLoggedTwice: aString
 	self assertIsLogged: aString times: 2.
 	! !
 
-!LogTestChangesTest methodsFor: 'as yet unclassified'!
+!LogTestChangesTest methodsFor: 'assertions'!
 assertIsNotLogged: aString
 	| logContent |
 
@@ -5919,17 +5922,15 @@ test02ScanFailedTestChange
 		self assert: testRunChange methodSelector equals: #aTestThatFails.
 		self assert: testRunChange isFailure ]! !
 
-!ScanTestChangesTest methodsFor: 'tests' stamp: 'MGD 3/17/2020 16:04:46'!
+!ScanTestChangesTest methodsFor: 'tests' stamp: 'HAW 4/7/2025 17:50:30'!
 test03ScanNewTestClass
 	
 	| newClassChange newClass |
 
 	self changeUserChangesFileWhile: [
-		newClass := TestCase 
-			subclass: #TestClassA
-			instanceVariableNames: '' 
-			classVariableNames: '' 
-			poolDictionaries: '' 
+		newClass := self 
+			createClassNamed: #TestClassA 
+			subclassOf: TestCase 
 			category: self classCategoryOfTestData.
 		newClassChange := self scanChangesFromFile last.
 

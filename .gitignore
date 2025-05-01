@@ -8,3 +8,4 @@ Packages
 Documentation
 vm
 !.gitignore
+!.gitattributes

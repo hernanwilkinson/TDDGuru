@@ -1,6 +1,6 @@
-'From Cuis7.3 [latest update: #7095] on 7 April 2025 at 5:54:04 pm'!
-'Description Test cleanup'!
-!provides: 'TDDGuru' 1 62!
+'From Cuis7.3 [latest update: #7146] on 14 May 2025 at 11:58:57 am'!
+'Description fix sent unimplemented messages'!
+!provides: 'TDDGuru' 1 63!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
@@ -818,14 +818,14 @@ pickStartPositionFromSnapshots: userChangesFileName
 				startUpWithCaption: 'Browse as far back as...'.
 ! !
 
-!AnalysisResultWindow class methodsFor: 'colors' stamp: 'HAW 1/24/2024 19:52:44'!
+!AnalysisResultWindow class methodsFor: 'colors' stamp: 'HAW 5/14/2025 10:02:44'!
 startAnalysis
 	| selected changesFile userChangesFileName |
 	
-	userChangesFileName := FillInTheBlankMorph 
+	userChangesFileName := self 
 		request: 'Where are the changes logged?' 
 		initialAnswer: (DirectoryEntry userChangesDirectory // Smalltalk userChangesFileName) pathName
-		onCancel: [ ^ nil ]. 	
+		orCancel: [ ^ nil ]. 	
 	changesFile := userChangesFileName asFileEntry.
 	
 	changesFile exists ifTrue: [
@@ -881,24 +881,24 @@ drawChangeRow: aRow on: aCanvas
 	
 ! !
 
-!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 9/29/2019 19:43:04'!
+!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'HAW 5/14/2025 10:11:30'!
 drawChangeTextFor: aRow in: aCanvas
 	aCanvas
 		drawString: (self item: aRow) displayStringOrText
-		at: 25 @ (self drawYForRow: aRow)
+		at: 45 @ (self drawYForRow: aRow)
 		font: font
 		color: (self colorForRow: aRow).
 		
 	
 ! !
 
-!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'MGD 11/5/2019 12:10:42'!
+!InnerChangeListMorph methodsFor: 'as yet unclassified' stamp: 'HAW 5/14/2025 10:10:58'!
 drawIconFor: aRow in: aCanvas
 	| currentEvent stateAfterChange icon |
 		
 	currentEvent := owner model changeAt: aRow.
 	stateAfterChange := owner model stateAfter: currentEvent change.
-	icon := TDDStateIcon for: stateAfterChange width: 20 height: (font lineSpacing - 1).
+	icon := TDDStateIcon for: stateAfterChange width: 40 height: (font lineSpacing - 1).
 	icon drawAt: (0 @ (self drawYForRow: aRow)) on: aCanvas.
 	icon setBalloonText: stateAfterChange asString 
 ! !
@@ -2928,6 +2928,11 @@ shouldStyle: aText with: aSHTextStylerST80
 textStylerClassFor: textGetter
 	textGetter = #selectedCode ifTrue: [ ^SHTextStylerST80 ].
 	^ super textStylerClassFor: textGetter ! !
+
+!TimeLine methodsFor: 'as yet unclassified' stamp: 'HAW 5/14/2025 10:04:30'!
+allowsStylingFor: selector isTextDirty: hasUnsavedEdits
+	
+	^false! !
 
 !TimeLine class methodsFor: 'as yet unclassified' stamp: 'MGD 1/3/2020 08:42:25'!
 for: anAnalysisResult

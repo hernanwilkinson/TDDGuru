@@ -1,6 +1,6 @@
-'From Cuis7.3 [latest update: #7146] on 14 May 2025 at 11:58:57 am'!
-'Description fix sent unimplemented messages'!
-!provides: 'TDDGuru' 1 63!
+'From Cuis7.5 [latest update: #7594] on 20 September 2025 at 6:49:26 pm'!
+'Description Removes addtional dot'!
+!provides: 'TDDGuru' 1 64!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
@@ -2708,8 +2708,8 @@ testClassRemoved: className
 testRemoved: aMethodReference 
 	tests remove: aMethodReference ifAbsent: [].! !
 
-!TestInventory methodsFor: 'entries' stamp: 'MGD 9/5/2019 08:12:52'!
-testRenamedFrom: previousTestReference to: currentTestReference.
+!TestInventory methodsFor: 'entries' stamp: 'HAW 9/20/2025 18:09:15'!
+testRenamedFrom: previousTestReference to: currentTestReference
 	tests remove: previousTestReference.
 	tests add: currentTestReference ! !
 
@@ -5707,8 +5707,8 @@ createTestClassSubclassOf: aClass named: aName
 		poolDictionaries: '' 
 		category: self classCategoryOfTestData.! !
 
-!TestChangesTest methodsFor: 'helpers' stamp: 'HAW 4/7/2025 17:43:16'!
-createTestDataClass.
+!TestChangesTest methodsFor: 'helpers' stamp: 'HAW 9/20/2025 18:07:20'!
+createTestDataClass
 
 	^self 
 		createClassNamed: self testDataClassName 
@@ -5797,7 +5797,7 @@ test03RunningATestWithAnErrorShouldBeLogged
 		self assertIsLoggedOnce: '!!testRun: ', testClass name printString, ' ', testName printString, ' stamp:'.
 		self assertIsLoggedOnce: 'ERROR!!' ]! !
 
-!LogTestChangesTest methodsFor: 'tests'!
+!LogTestChangesTest methodsFor: 'tests' stamp: ''!
 test04OverridingAMethodShouldBeLoggedWithAReferenceToTheOverridenMethod
 	" Log format expected:
 
@@ -5816,7 +5816,7 @@ test04OverridingAMethodShouldBeLoggedWithAReferenceToTheOverridenMethod
 		self assertIsLoggedOnce: 'overrides: '.
 		self assertIsLoggedOnce: 'm1 ^ 2' ] ! !
 
-!LogTestChangesTest methodsFor: 'tests'!
+!LogTestChangesTest methodsFor: 'tests' stamp: ''!
 test05WhenAMethodIsNotOverridenTheMethodReferenceIsNotIncluded
 	" Log format expected:
 
@@ -5886,7 +5886,7 @@ assertIsLoggedTwice: aString
 	self assertIsLogged: aString times: 2.
 	! !
 
-!LogTestChangesTest methodsFor: 'assertions'!
+!LogTestChangesTest methodsFor: 'assertions' stamp: ''!
 assertIsNotLogged: aString
 	| logContent |
 

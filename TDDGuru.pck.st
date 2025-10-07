@@ -1,6 +1,6 @@
-'From Cuis7.5 [latest update: #7594] on 20 September 2025 at 6:49:26 pm'!
-'Description Removes addtional dot'!
-!provides: 'TDDGuru' 1 64!
+'From Cuis7.5 [latest update: #7641] on 7 October 2025 at 9:30:59 am'!
+'Description isTestClassChange and overridesASuperclassMethod changes'!
+!provides: 'TDDGuru' 1 65!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
@@ -5984,6 +5984,35 @@ test05ScanAMethodThatIsNotOverriden
 		self assert: methodChange methodSelector equals: #m2.
 		self deny: methodChange overridesASuperclassMethod.
 		self deny: methodChange stamp isNil ]! !
+
+!ChangeRecord methodsFor: '*TDDGuru' stamp: 'HAW 10/7/2025 09:29:44'!
+isTestClassChange
+
+	"This is just a hack. In the original version when the class definition was loaded we looked at the
+	class definition to know if the class subclassed TestCase. We did that becuase the changed class could
+	not be in the image. Juan wanted to remove this method from Cuis so the good enough way to do it 
+	is if the class does not exist in the image to see if the name includes the string Test ... fragile but it will
+	work on most cases. A better change would mean to change the method that reads the class definition
+	and control if changes to that method were made, etc.
+	See failing tests for limitiations on this solution - Hernan"
+	^ self changeClass
+		ifNil: [ class includesSubString: 'Test' ] 
+		ifNotNil: [ :changeClass | changeClass inheritsFrom: TestCase ]
+		
+		! !
+
+!ChangeRecord methodsFor: '*TDDGuru' stamp: 'HAW 10/7/2025 09:24:39'!
+overridesASuperclassMethod
+
+	"Same as in isTestClassChange - Hernan"
+	
+	| sel |
+
+	sel := self methodSelector.
+	sel ifNil: [ ^false ].
+	self changeClass allSuperclassesDo: [ :cls | (cls includesSelector: sel) ifTrue: [ ^true ]].
+
+	^false! !
 
 !TestCase methodsFor: '*TDDGuru' stamp: 'HAW 1/24/2024 19:59:37'!
 logRunWithResult: aString

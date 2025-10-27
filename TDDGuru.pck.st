@@ -1,6 +1,6 @@
-'From Cuis7.5 [latest update: #7641] on 7 October 2025 at 9:57:12 am'!
+'From Cuis7.5 [latest update: #7641] on 27 October 2025 at 8:53:33 am'!
 'Description Rename Red to RedTDDState, etc.'!
-!provides: 'TDDGuru' 1 66!
+!provides: 'TDDGuru' 1 67!
 !requires: '__TDDGuru-TestData__' 1 0 nil!
 !requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
@@ -410,7 +410,7 @@ ChangeEvent class
 
 !classDefinition: #StateTransitionEvent category: #'TDDGuru-Model'!
 TimeLineEvent subclass: #StateTransitionEvent
-	instanceVariableNames: 'fromState toState'
+	instanceVariableNames: 'fromState toState tddState'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TDDGuru-Model'!
@@ -3047,9 +3047,9 @@ type
 from: aTDDState
 	fromState := aTDDState ! !
 
-!StateTransitionEvent methodsFor: 'initialization' stamp: 'MGD 6/20/2019 20:15:11'!
+!StateTransitionEvent methodsFor: 'initialization' stamp: 'HAW 10/27/2025 08:52:59'!
 tddState: aTDDState
-	tddState := aTDDState ! !
+	tddState := aTDDState! !
 
 !StateTransitionEvent methodsFor: 'initialization' stamp: 'MGD 6/27/2019 10:24:36'!
 to: aTDDState

@@ -1,7 +1,7 @@
 'From Cuis 5.0 [latest update: #3931] on 27 October 2019 at 12:47:52 am'!
 'Description '!
-!provides: 'TDDGuruSecondBootstrapping' 1 0!
-!requires: 'TDDGuruFirstBootstrapping' 1 0 nil!
+!provides: 'TDDGuruSecondBootstrapping' '1.0.0'!
+!requires: 'TDDGuruFirstBootstrapping' '1.0.0' '1.*.*'!
 
 
 

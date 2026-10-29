@@ -1,8 +1,8 @@
 'From Cuis7.5 [latest update: #7641] on 27 October 2025 at 8:53:33 am'!
 'Description Rename Red to RedTDDState, etc.'!
-!provides: 'TDDGuru' 1 67!
-!requires: '__TDDGuru-TestData__' 1 0 nil!
-!requires: 'TDDGuruSecondBootstrapping' 1 0 nil!
+!provides: 'TDDGuru' '1.67.0'!
+!requires: '__TDDGuru-TestData__' '1.0.0' '1.*.*'!
+!requires: 'TDDGuruSecondBootstrapping' '1.0.0' '1.*.*'!
 SystemOrganization addCategory: #'TDDGuru-Tests'!
 SystemOrganization addCategory: #'TDDGuru-Model'!
 SystemOrganization addCategory: #'TDDGuru-Tools'!

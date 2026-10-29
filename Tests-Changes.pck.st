@@ -1,6 +1,6 @@
 'From Cuis 5.0 [latest update: #3938] on 28 October 2019 at 9:56:40 am'!
 'Description Please enter a description for this package'!
-!provides: 'Tests-Changes' 1 8!
+!provides: 'Tests-Changes' '1.8.0'!
 SystemOrganization addCategory: #'Tests-Changes'!
 
 

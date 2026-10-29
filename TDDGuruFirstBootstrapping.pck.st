@@ -1,6 +1,6 @@
 'From Cuis 5.0 [latest update: #4129] on 2 May 2020 at 12:43:36 pm'!
 'Description Fix due to move of stampFrom: to CompiledMethod'!
-!provides: 'TDDGuruFirstBootstrapping' 1 4!
+!provides: 'TDDGuruFirstBootstrapping' '1.4.0'!
 SystemOrganization addCategory: #TDDGuruFirstBootstrapping!
 
 
